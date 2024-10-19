@@ -11,6 +11,7 @@ function Neutral() {
         setQuote(fetchedQuote.text); // Set the quote text in state
     }, []); // Empty dependency array ensures this runs only once on component mount
 
+    
     return (
         <div className="neutral-container">
             <h1>Neutral Sentiment Detected</h1>

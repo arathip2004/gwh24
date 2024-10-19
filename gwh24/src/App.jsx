@@ -9,7 +9,6 @@ import StrongNegative from './StrongNegative';
 
 function App() {
     const sentiment = new Sentiment();
-
     const [userInput, setUserInput] = useState('');
     const [result, setResult] = useState(null);
     const [humanReadable, setHumanReadable] = useState('');
