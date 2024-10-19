@@ -9,6 +9,7 @@ import StrongNegative from './StrongNegative';
 
 function App() {
     const sentiment = new Sentiment();
+
     const [userInput, setUserInput] = useState('');
     const [result, setResult] = useState(null);
     const [humanReadable, setHumanReadable] = useState('');
@@ -73,7 +74,6 @@ function App() {
                 )}
             </>
         );
-
     } else if(humanReadable === "Strongly Positive") {
         return <StrongPositive />;
     } else if(humanReadable === "Positive") {
