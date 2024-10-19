@@ -1,0 +1,171 @@
+.box {
+    width: 230px;
+    height: 230px;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .plant-box {
+    width: 1500px;
+    height: 35px;
+    background-color: #D0E4E5;
+    border: 3px solid #555869;
+    border-radius: 5px;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    &:before, 
+    &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 3px;
+    }
+    &:before {
+      background-color: #C3E5D0;
+      top: -6px;
+      border-radius: 5px 5px 0 0;
+      opacity: 0.9;
+    }
+     &:after {
+      background-color: #E0E0E0;
+      bottom: -6px;
+      border-radius: 0 0 5px 5px;
+    }
+  }
+  
+  .flower {
+    width: 20px;
+    height: 32px;
+    border: 3px solid #555869;
+    border-radius: 50%;
+    position: absolute;
+    
+    &:after,
+    &:before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 26px;
+      border: 3px solid #555869;
+      border-radius: 50%;
+      z-index: -1;
+    }
+    
+    &:after {
+      left: -10px;
+      bottom: -4px;
+      transform: rotate(-25deg);
+      animation: flower-left 1s infinite linear;
+    }
+    
+    &:before {
+      right: -10px;
+      bottom: -4px;
+      transform: rotate(25deg);
+      animation: flower-right 1s infinite linear;
+    }
+    
+    &.-flower1 {
+      background-color: #F7D2C9;
+      left: -500px;
+      top: 70px;
+    }
+    
+    &.-flower2 {
+      background-color: #87BDC1;
+      top: 80px;
+      left: -350px;
+    }
+    
+    &.-flower3 {
+      background-color: #D8778A;
+      top: 55px;
+      left: -200px;
+    }
+    &.-flower4 {
+        background-color: #b1cfb8;
+        top: 65px;
+        left: -50px;
+    }
+    &.-flower5 {
+        background-color: #d9a9dd;
+        top: 30px;
+        left: 100px;
+    }
+    &.-flower6 {
+        background-color: #9dadd4;
+        top: 80px;
+        left: 250px;
+    }
+    &.-flower7 {
+        background-color: #ddc594;
+        top: 55px;
+        left: 400px;
+    }
+    &.-flower8 {
+        background-color: #d4dcad;
+        top: 47px;
+        left: 550px;
+    }
+    &.-flower9 {
+        background-color: #D8778A;
+        top: 80px;
+        left: 700px;
+    }
+    
+  }
+
+  
+  .plant {
+    width: 3px;
+    height: 100px;
+    background-color: #555869;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 7px;
+      border: 3px solid #555869;
+      border-radius: 50%;
+      top: 20px;
+      animation: plant 2s infinite linear;
+    }
+  }
+  
+  @keyframes flower-left {
+    0% {transform: rotate(-25deg) }
+    50% {transform: rotate(-30deg) scale(0.95)}
+    100% { transform: rotate(-25deg)}
+  }
+  
+  @keyframes flower-right {
+    0% {transform: rotate(25deg) }
+    50% {transform: rotate(30deg) scale(0.95)}
+    100% { transform: rotate(25deg)}
+  }
+  
+  @keyframes plant {
+    0% { transform: rotate(0) }
+    25% { 
+      transform: rotate(8deg);
+      transform-origin: left;
+    }
+    50% { transform: rotate(0)}
+    75% { 
+      transform: rotate(-8deg);
+      transform-origin: left;
+    }
+    100% {transform: rotate(0)}
+  }
