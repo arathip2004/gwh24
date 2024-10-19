@@ -1,0 +1,14 @@
+.textanimation{
+    font-size: 25px;
+    padding-bottom: 10px;
+    display: flex;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 10px;
+}
+
+.typedwords{
+    color: #C3E5D0;
+    font-size: 25px;
+}

@@ -3,8 +3,9 @@ import {ReactTyped} from "react-typed";
 
 function TextAnimation() {
     return (
-        <div>
+        <div class = "textanimation">
            I'm feeling{" "}
+           <div class = "typedwords">
             <ReactTyped
             strings={["happy :)", "sad :(", "okay :/"]}
             typeSpeed={100}
@@ -13,6 +14,7 @@ function TextAnimation() {
             cursorChar="|"
             showCursor={true}
             />
+            </div>
         </div>
         
     );
