@@ -12,6 +12,7 @@ To Run
 cd gwh24
 npm install
 npm run dev
+npm install natural
 
 Contributions
 []
