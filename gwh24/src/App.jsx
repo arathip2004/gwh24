@@ -8,6 +8,18 @@ function App() {
   const [userInput, setUserInput] = useState('');
   const [result, setResult] = useState(null);
   const [humanReadable, setHumanReadable] = useState('');
+  const [quote, setQuote] = useState('');
+
+  function fetchQuote() {
+    const url = "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
+    return fetch(url)
+        .then(response => response.json())
+        .then(data => data.quoteText)
+        .catch(error => {
+          console.error("Error fetching quote:", error);
+          return "Could not fetch quote.";
+        });
+  }
 
   function interpretSentiment(score) {
     if (score > 0.5) return "Strongly Positive";
@@ -17,11 +29,20 @@ function App() {
     return "Strongly Negative";
   }
 
-  function handleSubmit() {
+async function handleSubmit() {
     const analysis = sentiment.analyze(userInput); // Analyzing user input
     const score = analysis.score; // Extracting the sentiment score
     setResult(score);
-    setHumanReadable(interpretSentiment(score)); // Interpreting score
+    const interpretation = interpretSentiment(score)
+    setHumanReadable(interpretation);
+
+    if (interpretation === "Strongly Negative") {
+      const fetchedQuote = await fetchQuote();
+      setQuote(fetchedQuote);
+    } else {
+      setQuote('');
+    }
+
   }
 
 
@@ -30,16 +51,16 @@ function App() {
       <h1>
         How are you feeling today?
       </h1>
-      <div class = "container">
-      <div class="search">
-  <input placeholder="Search" class="search__input" type="text" onKeyDown={(e) => {
+      <div className = "container">
+      <div className="search">
+  <input placeholder="Search" className="search__input" type="text" onKeyDown={(e) => {
     if (e.key === "Enter" || e.key === "Return") {
       handleSubmit();
     }}}/>
-  <button class="search__button" onClick={handleSubmit}>
+  <button className="search__button" onClick={handleSubmit}>
     <svg
       viewBox="0 0 16 16"
-      class="bi bi-arrow-right"
+      className="bi bi-arrow-right"
       fill="currentColor"
       height="16"
       width="16"
@@ -53,16 +74,22 @@ function App() {
   </button>
 </div>
 </div>
-
-
       {result !== null && (
         <div>
           <p>Sentiment Score: {result}</p>
           <p>Interpretation: {humanReadable}</p>
         </div>
       )}
+      {quote && (<div>
+            <p>Affirmation: &#34;{quote}&#34; </p> {/* Display the fetched affirmation */}
+          </div>
+      )}
     </>
   )
 }
 
 export default App
+
+
+
+
