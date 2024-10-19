@@ -2,7 +2,9 @@ import './styles.css'
 
 function Positive() {
     return (
-        <>Positive</>
+        <div>
+        <h1>Positive Sentiment Detected</h1>
+        </div>
     )   
 }
 
