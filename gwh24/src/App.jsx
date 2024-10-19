@@ -17,7 +17,7 @@ function App() {
         .then(data => data.quoteText)
         .catch(error => {
           console.error("Error fetching quote:", error);
-          return "Could not fetch quote.";
+          return "Could not fetch quote. ";
         });
   }
 
