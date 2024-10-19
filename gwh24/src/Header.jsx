@@ -2,12 +2,10 @@ import './Header.css'
 
 function Header() {
     return (
-        <div class = "navBar">
-         <head>
-            <h1 class = "logo">Path to Bloom</h1>
-         </head>
+        <div class="navBar">
+            <a href = ".\App.jsx" class="logo">Path to Bloom</a>
         </div>
-    )   
+    );
 }
 
-export default Header
+export default Header;
