@@ -2,7 +2,8 @@
 
 .navBar {
   overflow: hidden;
-  background-color: #e1e1e1;
+  background-color: #ffffff;
+  border-bottom: 3px solid #555869;
   position: absolute;
   top: 0;
   width: 100%;
