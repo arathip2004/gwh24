@@ -6,6 +6,8 @@ import Positive from './Positive';
 import Neutral from './Neutral'; // Neutral component now handles quotes
 import Negative from './Negative';
 import StrongNegative from './StrongNegative';
+import TextAnimation from './TextAnimation'
+import FlowerFooter from './FlowerFooter';
 
 function App() {
     const sentiment = new Sentiment();
@@ -36,6 +38,9 @@ function App() {
                 <h1>
                     How are you feeling today?
                 </h1>
+
+                <TextAnimation/>
+
                 <div className="container">
                     <div className="search">
                         <input
@@ -72,6 +77,7 @@ function App() {
                         <p>Interpretation: {humanReadable}</p>
                     </div>
                 )}
+                <FlowerFooter/>
             </>
         );
     } else if(humanReadable === "Strongly Positive") {
