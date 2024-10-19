@@ -73,6 +73,7 @@ function App() {
                 )}
             </>
         );
+
     } else if(humanReadable === "Strongly Positive") {
         return <StrongPositive />;
     } else if(humanReadable === "Positive") {

@@ -6,7 +6,6 @@ const [quote, setQuote] = useState('');
     async function fetchQuote() {
         const url = "https://favqs.com/api/qotd";
         const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-      
         try {
           const response = await fetch(proxyUrl);
           const data = await response.json();
