@@ -17,6 +17,7 @@ npm install react-typed
 npm install axios
 npm install firebase
 npm run dev
+npm react-router-dom
 
 Contributions
 []
