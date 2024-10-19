@@ -80,7 +80,7 @@
 }
 
 .input-wrapper::after {
-  content: "🔍";
+  content: "→";
   position: absolute;
   right: 0rem;
   top: 50%;
