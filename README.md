@@ -15,6 +15,7 @@ npm install sentiment
 npm install inspirational-quotes
 npm install react-typed
 npm install axios
+npm install firebase
 npm run dev
 
 Contributions
