@@ -1,42 +1,29 @@
-import './styles.css'
-import React, { useState } from 'react'; // Import React and useState
+import './styles.css';
+import React, { useState, useEffect } from 'react';
+import Quotes from 'inspirational-quotes'; // Import the inspirational quotes package
 
 function Neutral() {
-const [quote, setQuote] = useState('');
-    async function fetchQuote() {
-        const url = "https://favqs.com/api/qotd";
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-      
-        try {
-          const response = await fetch(proxyUrl);
-          const data = await response.json();
-          const quoteData = JSON.parse(data.contents); // Parse the JSON string
-          return quoteData.quote.body; // Access the quote text
-        } catch (error) {
-          console.error("Error fetching quote:", error.message);
-          return "Could not fetch quote.";
-        }
-      }
+    const [quote, setQuote] = useState(''); // State to store the fetched quote
 
-      async function handleSubmit() {
-        const fetchedQuote = await fetchQuote();
-        setQuote(fetchedQuote);
-        }
+    // Load the quote when the component is mounted
+    useEffect(() => {
+        const fetchedQuote = Quotes.getQuote(); // Use the package to get a random quote
+        setQuote(fetchedQuote.text); // Set the quote text in state
+    }, []); // Empty dependency array ensures this runs only once on component mount
 
-        return (
-            <>
-              {result !== null && (
+    return (
+        <div className="neutral-container">
+            <h1>Neutral Sentiment Detected</h1>
+            <p>Here’s an inspirational quote for you:</p>
+            {quote ? (
                 <div>
-                  <p>Sentiment Score: {result}</p>
-                  <p>Interpretation: {humanReadable}</p>
+                    <p className="quote">"{quote}"</p> {/* Display the fetched quote */}
                 </div>
-              )}
-              {quote && (<div>
-                    <p>Affirmation: &#34;{quote}&#34; </p> {/* Display the fetched affirmation */}
-                  </div>
-              )}
-            </>
-          )
+            ) : (
+                <p>Loading quote...</p>
+            )}
+        </div>
+    );
 }
 
-export default Neutral
+export default Neutral;
