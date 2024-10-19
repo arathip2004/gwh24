@@ -8,6 +8,7 @@ function Neutral() {
     const [songs, setSongs] = useState([]);
     const [randomSong, setRandomSong] = useState(null);
     const [token, setToken] = useState(null); // State for storing the token
+    const genres = ["ambient", "lo-fi", "chill", "instrumental"]; // List of genres
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -24,23 +25,30 @@ function Neutral() {
         };
 
         const fetchSongs = async (token) => {
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                params: {
-                    q: "genre:ambient", // Changed to ambient for calm music
-                    type: "track",
-                },
-            };
+            const allSongs = []; // Array to hold songs from all genres
 
-            try {
-                const response = await axios.get("https://api.spotify.com/v1/search", config);
-                setSongs(response.data.tracks.items);
-                getRandomSong(response.data.tracks.items);
-            } catch (error) {
-                console.error("Error fetching songs from Spotify:", error);
+            // Fetch songs for each genre
+            for (const genre of genres) {
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    params: {
+                        q: `genre:${genre}`, // Use the genre for fetching songs
+                        type: "track",
+                    },
+                };
+
+                try {
+                    const response = await axios.get("https://api.spotify.com/v1/search", config);
+                    allSongs.push(...response.data.tracks.items); // Add the fetched songs to the allSongs array
+                } catch (error) {
+                    console.error(`Error fetching songs for genre ${genre}:`, error);
+                }
             }
+
+            setSongs(allSongs); // Update state with all songs
+            getRandomSong(allSongs); // Get a random song from the combined results
         };
 
         fetchToken(); // Call fetchToken when component mounts
@@ -54,7 +62,7 @@ function Neutral() {
 
     return (
         <div className="App">
-            <h1>Calm Music - Ambient</h1>
+            <h1>Calm Music</h1>
             {randomSong ? (
                 <div>
                     <h2>{randomSong.name}</h2>
