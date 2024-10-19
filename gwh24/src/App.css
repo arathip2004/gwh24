@@ -121,3 +121,58 @@
   animation: shake 0.5s ease-in-out;
   border-color: #ff4d4d;
 }
+.container {
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  height: 100vh;            /* Full viewport height to center vertically */
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Added for the relative positioning of button */
+  width: 15rem; /* Match the width of the input */
+}
+
+.search__input {
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid #767676;
+  color: #767676;
+  padding: 5px 40px 5px 10px; /* Extra right padding for button space */
+  border-radius: 4px;
+  height: 30px;
+  width: 100%; /* Make input take the full width of the parent */
+}
+
+.search__input::-webkit-input-placeholder {
+  font-weight: 400;
+  color: #767676;
+  font-size: 14px;
+}
+
+.search__button {
+  position: absolute;
+  right: 10px; /* Align the button to the right inside the input box */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center the button */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search__button img {
+  width: 16px; /* You can adjust the arrow size here */
+  height: 16px;
+}
+
+.search__button:hover {
+  cursor: pointer;
+}
+
+.search input:focus {
+  outline: none;
+}
