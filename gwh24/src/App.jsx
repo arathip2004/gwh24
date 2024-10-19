@@ -44,7 +44,7 @@ function App() {
                 <div className="container">
                     <div className="search">
                         <input
-                            placeholder="Search"
+                            placeholder=""
                             className="search__input"
                             type="text"
                             onChange={e => setUserInput(e.target.value)}

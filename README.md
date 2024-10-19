@@ -11,8 +11,11 @@ Authors
 To Run
 cd gwh24
 npm install
+npm install sentiment
+npm install inspirational-quotes
+npm install react-typed
+npm install axios
 npm run dev
-npm install natural
 
 Contributions
 []
