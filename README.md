@@ -1,29 +1,22 @@
 # gwh24
-run npm install and then run npm run dev
-# gwh24
-# Homework 3 - Streams and Incremental Development
+GWH Project
 
-## Authors
-1) 
-
-
-## To Run
+Authors
+1) Pallavi Mamillapalli
+2) Shreeja Tangutur
+3) Athira Ponneth
+4) Arathi Ponneth
 
 
+To Run
+npm run dev
 
-## Contributions
+Contributions
+[]
 
+[]
 
-
-### []
-
-
-
-### []
-
+[]
 
 
-### []
-
-
-## Issues
+Issues
