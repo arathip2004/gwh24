@@ -53,7 +53,7 @@ async function handleSubmit() {
       </h1>
       <div className = "container">
       <div className="search">
-  <input placeholder="Search" className="search__input" type="text" onKeyDown={(e) => {
+  <input placeholder="Search" className="search__input" type="text" onChange= {e => setUserInput(e.target.value)} onKeyDown={(e) => {
     if (e.key === "Enter" || e.key === "Return") {
       handleSubmit();
     }}}/>
