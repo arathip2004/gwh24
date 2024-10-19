@@ -1,3 +1,5 @@
+
+
 .navBar {
   overflow: hidden;
   background-color: #e1e1e1;
@@ -7,6 +9,8 @@
   height: 75px; /* Adjust height automatically based on content */
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  gap: 10 px;
 }
 
 .logo
@@ -14,8 +18,15 @@
     float:left;
     position:absolute;
     top: 20%;
-    left:2%;
+    left:5%;
     font-weight: bold;
     font-size: 30px;
     color: black;
+}
+
+img{
+  height: 80px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
 }
