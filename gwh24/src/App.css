@@ -81,6 +81,7 @@
 
 .input-wrapper::after {
   content: "→";
+  color:#000000;
   position: absolute;
   right: 0rem;
   top: 50%;
@@ -144,6 +145,7 @@
   border-radius: 4px;
   height: 30px;
   width: 100%; /* Make input take the full width of the parent */
+  background: white;
 }
 
 .search__input::-webkit-input-placeholder {
@@ -161,6 +163,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  color: black;
 }
 
 .search__button img {
