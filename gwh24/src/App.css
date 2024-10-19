@@ -125,7 +125,6 @@
   display: flex;
   justify-content: center;  /* Center horizontally */
   align-items: center;      /* Center vertically */
-  height: 100vh;            /* Full viewport height to center vertically */
 }
 
 .search {
@@ -133,7 +132,7 @@
   justify-content: center;
   align-items: center;
   position: relative; /* Added for the relative positioning of button */
-  width: 15rem; /* Match the width of the input */
+  width: 30rem; /* Match the width of the input */
 }
 
 .search__input {
