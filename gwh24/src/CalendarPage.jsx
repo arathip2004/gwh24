@@ -100,9 +100,9 @@ function MyCalendar() {
             sentiment = 'Strongly Negative';
         } else if (numOfPositives > 3 && numOfPositives <= 8) {
             sentiment = 'Negative';
-        } else if (numOfPositives > 8 && numOfPositives <= 12) {
+        } else if (numOfPositives > 8 && numOfPositives <= 10) {
             sentiment = 'Neutral';
-        } else if (numOfPositives > 12 && numOfPositives <= 20) {
+        } else if (numOfPositives > 10 && numOfPositives <= 15) {
             sentiment = 'Positive';
         } else {
             sentiment = 'Strongly Positive';
