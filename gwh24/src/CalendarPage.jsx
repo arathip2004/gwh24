@@ -83,7 +83,19 @@ function MyCalendar() {
     // Update the sentiment image based on the selected date's sentiment
     useEffect(() => {
         const selectedDateString = value.toISOString().split('T')[0];
-        const sentiment = calendarData[selectedDateString];
+        let sentiment = "";
+        if (numOfPositives <=3) {
+            sentiment = 'Strongly Negative';
+        } else if (numOfPositives > 3 && numOfPositives <=8) {
+            sentiment = 'Negative';
+        } else if (numOfPositives >8 && numOfPositives <=12) {
+            sentiment = 'Neutral';
+        } else if (numOfPositives >12 && numOfPositives <=20) {
+            sentiment = 'Positive';
+        } else {
+            sentiment = 'Strongly Positive';
+        }
+
         if (sentiment) {
             setSentimentImage(sentimentImages[sentiment]);
         } else {
