@@ -23,5 +23,15 @@
     border-radius: 10px;
     padding: 20px;
     max-width: 400px;
-    margin: 0 auto;
+    margin-left: 0;
+}
+.my-custom-calendar .react-calendar {
+    background-color: #fff !important;
+    border: 2px solid orange !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    margin-left: 0 !important;
+}
+.my-custom-calendar .react-calendar {
+    font-family: 'Indie Flower', cursive;
 }
