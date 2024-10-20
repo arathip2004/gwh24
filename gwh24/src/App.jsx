@@ -41,12 +41,12 @@ function App() {
         }
       }
 
-      // Store or overwrite sentiment analysis with date and interpretation
+      // Store or overwrite sentiment analysis, user input, and date
       await setDoc(docRef, {
         sentiment: interpretation,
+        message: userInput, // Store the user's message
         date: currDate,
       });
-      alert('Your sentiment has been submitted successfully.');
     } catch (error) {
       console.error('Error adding or overwriting sentiment in Firestore:', error);
     }
