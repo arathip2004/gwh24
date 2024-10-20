@@ -41,6 +41,7 @@ function StrongPositive() {
     return (
         <div>
             <h1>Strongly Positive Sentiment Detected</h1>
+            <p>We're so glad, you seem really happy. Here's a joke to keep your smile on your face:</p>
         <p>{joke ? joke : 'Loading joke...'}</p>
         <button onClick={fetchJoke}>Generate New Joke</button>
       {meme ? (
