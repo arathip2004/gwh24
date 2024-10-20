@@ -5,117 +5,91 @@ import Positive from './Positive';
 import Neutral from './Neutral'; // Neutral component now handles quotes
 import Negative from './Negative';
 import StrongNegative from './StrongNegative';
-import TextAnimation from './TextAnimation'
+import TextAnimation from './TextAnimation';
 import FlowerFooter from './FlowerFooter';
-import { useState, useEffect } from "react";
-/*import { collection, getDocs } from 'firebase/firestore/lite';*/
-import axios from "axios";
-import { db } from "./firebaseConfig"; // Adjust the path as necessary
-
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-
+import { useState, useEffect } from 'react';
+import { CookiesProvider, useCookies } from 'react-cookie';
+import { v4 as uuidv4 } from 'uuid';  // Import UUID generation
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from './firebaseConfig'; // Adjust the path as necessary
 
 function App() {
-
-
-    const [ip, setIP] = useState("");
+    const [cookies, setCookie] = useCookies(['userUUID']);
     const [existingUser, setExistingUser] = useState(null);
-
-
-    const getIP = async () => {
-
-      
-    };
-
-    const addSentiment = async (interpretation) =>{
-      const userDocRef = doc(db, "users", ip); // 'users' is a collection where each document is an IP
-      
-
-      await setDoc(userDocRef, {
-        sentiment: interpretation,
-        date: new Date()
-      });
-
-    }
-
-    useEffect(() => {
-        const fetchUser = async () => {
-          try {
-            // Fetch the user's IP address
-            const res = await axios.get("https://api.ipify.org/?format=json");
-            const ip = res.data.ip;
-            console.log("User IP:", ip);
-      
-            setIP(ip); // Save the IP in the state
-            
-            // Use the IP address as part of the document (not collection) for user identification
-            const userDocRef = doc(db, "users", ip); // 'users' is a collection where each document is an IP
-            
-            const userDoc = await getDoc(userDocRef); // Check if the document for this IP exists
-      
-            if (userDoc.exists()) {
-              // User document exists
-              console.log("Welcome back, user");
-              setExistingUser(true);
-            } else {
-
-              const subcollectionRef = collection(userDoc, "entries"); 
-
-              // New user, add their info
-              try {
-                const docRef = await addDoc(subcollectionRef, {"name": firstDoc});
-                console.log("Document written with ID: ", docRef.id);
-              } catch (e) {
-                console.error("Error adding document: ", e);
-              }
-
-              setExistingUser(false);
-            }
-          } catch (error) {
-            console.error("Error fetching user or adding to Firestore:", error);
-          }
-        };
-      
-        fetchUser();
-
-        const addDataToSubcollection = async (data) => {
-          
-        }
-        addDataToSubcollection();
-      }, []);      
-
     const sentiment = new Sentiment();
-
     const [userInput, setUserInput] = useState('');
     const [result, setResult] = useState(null);
     const [humanReadable, setHumanReadable] = useState('');
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                let userUUID = cookies.userUUID;
+
+                if (!userUUID) {
+                    // If no UUID is stored in cookies, generate a new one
+                    userUUID = uuidv4();
+                    setCookie('userUUID', userUUID, { path: '/' });
+                }
+
+                // Check if this user collection exists (you might need to store something initially in Firebase to check)
+                const userCollectionRef = collection(db, 'users', userUUID, 'sentiments');
+                const firstDoc = await getDoc(doc(userCollectionRef, 'checkIfExists'));
+
+                if (firstDoc.exists()) {
+                    console.log('Welcome back, user');
+                    setExistingUser(true);
+                } else {
+                    console.log('New user detected.');
+                    setExistingUser(false);
+                }
+            } catch (error) {
+                console.error('Error fetching user or adding to Firestore:', error);
+            }
+        };
+
+        fetchUser();
+    }, [cookies, setCookie]);
+
+    const addSentiment = async (interpretation) => {
+        const userUUID = cookies.userUUID;
+
+        // Create a reference to the user's collection
+        const userCollectionRef = collection(db, 'users', userUUID, 'sentiments');
+
+        // Use the current date and time as the document ID for each sentiment entry
+        const date = new Date();
+        const docRef = doc(userCollectionRef, date.toISOString());
+
+        // Store sentiment analysis with date and interpretation
+        await setDoc(docRef, {
+            sentiment: interpretation,
+            date: date,
+        });
+    };
+
     function interpretSentiment(score) {
-        if (score > 5) return "Strongly Positive";
-        if (score > 0) return "Positive";
-        if (score === 0) return "Neutral";
-        if (score > -5) return "Negative";
-        return "Strongly Negative";
+        if (score > 5) return 'Strongly Positive';
+        if (score > 0) return 'Positive';
+        if (score === 0) return 'Neutral';
+        if (score > -5) return 'Negative';
+        return 'Strongly Negative';
     }
 
     function handleSubmit() {
-        const analysis = sentiment.analyze(userInput); // Analyzing user input
-        const score = analysis.score; // Extracting the sentiment score
+        const analysis = sentiment.analyze(userInput);
+        const score = analysis.score;
         setResult(score);
         const interpretation = interpretSentiment(score);
         setHumanReadable(interpretation);
         addSentiment(interpretation);
     }
 
-
-    if(existingUser != null && result == null) {
+    if (existingUser !== null && result === null) {
         return (
             <>
-                <h1>
-                    How are you feeling today?
-                </h1>
-
-                <TextAnimation/>
+                <h1>How are you feeling today?</h1>
+                <TextAnimation />
 
                 <div className="container">
                     <div className="search">
@@ -123,9 +97,9 @@ function App() {
                             placeholder=""
                             className="search__input"
                             type="text"
-                            onChange={e => setUserInput(e.target.value)}
+                            onChange={(e) => setUserInput(e.target.value)}
                             onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === "Return") {
+                                if (e.key === 'Enter') {
                                     handleSubmit();
                                 }
                             }}
@@ -153,18 +127,18 @@ function App() {
                         <p>Interpretation: {humanReadable}</p>
                     </div>
                 )}
-                <FlowerFooter/>
+                <FlowerFooter />
             </>
         );
-    } else if(humanReadable === "Strongly Positive") {
+    } else if (humanReadable === 'Strongly Positive') {
         return <StrongPositive />;
-    } else if(humanReadable === "Positive") {
+    } else if (humanReadable === 'Positive') {
         return <Positive />;
-    } else if(humanReadable === "Neutral") {
-        return <Neutral />; // Neutral component handles quote display
-    } else if(humanReadable === "Negative") {
+    } else if (humanReadable === 'Neutral') {
+        return <Neutral />;
+    } else if (humanReadable === 'Negative') {
         return <Negative />;
-    } else if(humanReadable === "Strongly Negative") {
+    } else if (humanReadable === 'Strongly Negative') {
         return <StrongNegative />;
     }
 }
