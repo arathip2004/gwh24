@@ -24,6 +24,7 @@
     padding: 20px;
     max-width: 400px;
     margin-left: 0;
+    margin-right: 100px;
 }
 .my-custom-calendar .react-calendar {
     background-color: #fff !important;
@@ -34,4 +35,12 @@
 }
 .my-custom-calendar .react-calendar {
     font-family: 'Indie Flower', cursive;
+}
+.flower-image
+{
+    margin-top: 100px;
+}
+body
+{
+    background-color: #d0e4e5;;
 }
