@@ -121,6 +121,7 @@ function MyCalendar() {
                         alt="Sentiment"
                     />
                     <h1 className = "flower-text">Help your flower grow by having more good days!</h1>
+                    <h4>You have {numOfPositives} good days so far.</h4>
                 </div>
             </div>
         </>
