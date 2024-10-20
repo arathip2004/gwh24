@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import Sentiment from 'sentiment';
 import StrongPositive from './StrongPositive';
@@ -8,8 +7,47 @@ import Negative from './Negative';
 import StrongNegative from './StrongNegative';
 import TextAnimation from './TextAnimation'
 import FlowerFooter from './FlowerFooter';
+import { useState, useEffect } from "react";
+import { collection, getDocs } from 'firebase/firestore/lite';
+import axios from "axios";
+import { db } from "./firebaseConfig"; // Adjust the path as necessary
+
 
 function App() {
+
+
+    const [ip, setIP] = useState("");
+    const [existingUser, setExistingUser] = useState(null);
+
+
+    const getIP = async () => {
+      const res = await axios.get("https://api.ipify.org/?format=json");
+      console.log(res.data);
+      setIP(res.data.ip);
+    };
+
+
+    useEffect(() => {
+      //passing getData method to the lifecycle method
+      getIP();
+
+      const fetchUser = async () => {
+        console.log("getting data");
+        const userCollection = await getDocs(collection(db, ip));
+  
+        if (userCollection.exists()) {
+         //existing user
+         console.log("hi user")
+         setExistingUser(true)
+        } else {
+          console.log("adding user")
+          addDoc(collection(db, ip));
+          setExistingUser(false);
+        }
+      }
+      fetchUser();
+    }, []);
+
     const sentiment = new Sentiment();
 
     const [userInput, setUserInput] = useState('');
@@ -32,7 +70,8 @@ function App() {
         setHumanReadable(interpretation);
     }
 
-    if(result == null) {
+
+    if(existingUser != null && result == null) {
         return (
             <>
                 <h1>
