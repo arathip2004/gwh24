@@ -24,7 +24,6 @@
     padding: 20px;
     max-width: 400px;
     margin-left: 0;
-    margin-right: 250px;
 }
 .my-custom-calendar .react-calendar {
     background-color: #fff !important;
@@ -75,4 +74,45 @@
 .active-day.strongly-negative-day {
     background-color: transparent;
     border: 2px solid #ffb3ba;
+}
+.react-calendar__tile--active.strongly-positive {
+    background-color: #80b577 !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.positive {
+    background-color: #b2fba5 !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.strongly-negative {
+    background-color: #ffb3ba !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.neutral {
+    background-color: #bae1ff !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.negative {
+    background-color: #ffdfba !important;
+    border: 2px solid black;
+}
+.keypicture{
+    height: 300px;
+    max-width: fit-content;
+    right: 50%;
+    margin-left: auto;
+    top: 50%;
+}
+
+.picAndTitle{
+    margin-top: 100px;
+}
+
+.calendarAndKey{
+    display: flex;
+    gap: 2rem;
+    max-width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    margin-right: 150px;
+    margin-top: 100px;
 }
