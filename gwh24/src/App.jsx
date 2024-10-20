@@ -27,39 +27,16 @@ function App() {
       
     };
 
-
-    /*useEffect(() => {
-      //passing getData method to the lifecycle method
-
-      const fetchUser = async () => {
-        var res = null;
-        while(res == null){
-        res = await axios.get("https://api.ipify.org/?format=json");
-        }
-        console.log(res.data);
-        setIP(res.data.ip);
+    const addSentiment = async (interpretation) =>{
+      const userDocRef = doc(db, "users", ip); // 'users' is a collection where each document is an IP
       
-        console.log("getting data");
 
-        const userCollection = await getDocs(collection(db,  ip));
-  
-        if (userCollection.exists()) {
-         //existing user
-         console.log("hi user")
-         setExistingUser(true)
-        } else {
-          console.log("adding user")
-          const newCollectionRef = collection(db, {ip});
-          const newDocRef = await addDoc(newCollectionRef, { 
-            // Data for the first document in the collection
-            name: "First Document", 
-            value: 100 
-          });
-          setExistingUser(false);
-        }
-      }
-      fetchUser();
-    }, []);*/
+      await setDoc(userDocRef, {
+        sentiment: interpretation,
+        date: new Date()
+      });
+
+    }
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -81,12 +58,17 @@ function App() {
               console.log("Welcome back, user");
               setExistingUser(true);
             } else {
+
+              const subcollectionRef = collection(userDoc, "entries"); 
+
               // New user, add their info
-              console.log("Adding new user");
-              await setDoc(userDocRef, {
-                name: "First Document", 
-                value: 100 
-              });
+              try {
+                const docRef = await addDoc(subcollectionRef, {"name": firstDoc});
+                console.log("Document written with ID: ", docRef.id);
+              } catch (e) {
+                console.error("Error adding document: ", e);
+              }
+
               setExistingUser(false);
             }
           } catch (error) {
@@ -95,6 +77,11 @@ function App() {
         };
       
         fetchUser();
+
+        const addDataToSubcollection = async (data) => {
+          
+        }
+        addDataToSubcollection();
       }, []);      
 
     const sentiment = new Sentiment();
@@ -117,6 +104,7 @@ function App() {
         setResult(score);
         const interpretation = interpretSentiment(score);
         setHumanReadable(interpretation);
+        addSentiment(interpretation);
     }
 
 
