@@ -65,6 +65,12 @@ function MyCalendar() {
         if (view === 'month') {
             const dateString = date.toISOString().split('T')[0];
             const sentiment = calendarData[dateString];
+            const isActive = value.toISOString().split('T')[0] === dateString; // Currently selected date
+
+            if (isActive) {
+                return sentiment ? `active-day ${sentiment.toLowerCase().replace(' ', '-')}` : 'active-day';
+            }
+
             if (sentiment === 'Strongly Positive') {
                 return 'strong-positive-day';
             } else if (sentiment === 'Positive') {
@@ -121,6 +127,7 @@ function MyCalendar() {
                         alt="Sentiment"
                     />
                     <h1 className = "flower-text">Help your flower grow by having more good days!</h1>
+                    <h4>You have {numOfPositives} good days so far.</h4>
                 </div>
             </div>
         </>

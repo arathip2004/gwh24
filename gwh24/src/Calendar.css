@@ -1,9 +1,9 @@
 .strong-positive-day {
-    background-color: #baffc9;
+    background-color: #80b577;
 }
 
 .positive-day {
-    background-color: #B2EAD3;
+    background-color: #b2fba5;
 }
 
 .neutral-day {
@@ -51,4 +51,28 @@
 {
     margin-top: -100px;
     font-size: 25px;
+}
+.active-day.strong-positive-day {
+    background-color: transparent;
+    border: 2px solid #baffc9;
+}
+
+.active-day.positive-day {
+    background-color: transparent;
+    border: 2px solid #B2EAD3;
+}
+
+.active-day.neutral-day {
+    background-color: transparent;
+    border: 2px solid #bae1ff;
+}
+
+.active-day.negative-day {
+    background-color: transparent;
+    border: 2px solid #ffdfba;
+}
+
+.active-day.strongly-negative-day {
+    background-color: transparent;
+    border: 2px solid #ffb3ba;
 }
