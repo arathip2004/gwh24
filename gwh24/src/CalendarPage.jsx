@@ -87,10 +87,10 @@ function MyCalendar() {
 
     const sentimentImages = {
         'Strongly Positive': "./src/flowerBlossom.png",
-        'Positive': './src/stem.png',
-        'Neutral': './src/sprout.svg',
-        'Negative': './src/bud.svg',
-        'Strongly Negative': './src/dirt.svg',
+        'Positive': './src/bud.png',
+        'Neutral': './src/stem.png',
+        'Negative': './src/leaf.png',
+        'Strongly Negative': './src/dirt.png',
     };
 
     return (
