@@ -7,6 +7,8 @@ import './Calendar.css';
 function MyCalendar() {
     const [value, onChange] = useState(new Date());
     const sentimentData = {
+        '2024-10-15': 'Strongly Negative',
+        '2024-10-16': 'Strongly Positive',
         '2024-10-17': 'Positive',
         '2024-10-18': 'Negative',
         '2024-10-19': 'Neutral',
@@ -31,7 +33,7 @@ function MyCalendar() {
         return '';
     };
     return (
-        <div style={{ textAlign: 'left', margin: '20px' }}>
+        <div className="my-custom-calendar">
             <h1>Select a Date</h1>
             <Calendar
                 onChange={onChange}
