@@ -76,3 +76,24 @@
     background-color: transparent;
     border: 2px solid #ffb3ba;
 }
+
+.react-calendar__tile--active.strongly-positive {
+    background-color: #80b577 !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.positive {
+    background-color: #b2fba5 !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.strongly-negative {
+    background-color: #ffb3ba !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.neutral {
+    background-color: #bae1ff !important;
+    border: 2px solid black;
+}
+.react-calendar__tile--active.negative {
+    background-color: #ffdfba !important;
+    border: 2px solid black;
+}
