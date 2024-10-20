@@ -1,11 +1,15 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
 
 function MyCalendar() {
     const [value, onChange] = useState(new Date());
+    const [numOfPositives, setNumPositive] = useState(0);
+    const [existingUser, setExistingUser] = useState(null);
+
+
     const sentimentData = {
         '2024-10-01': 'Negative',
         '2024-10-02': 'Positive',
@@ -24,6 +28,46 @@ function MyCalendar() {
         '2024-10-18': 'Negative',
         '2024-10-19': 'Neutral',
     };
+
+    const [calendarData, setCalendatData] = useState(sentimentData);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+              let userUUID = cookies.userUUID;
+      
+              if (!userUUID) {
+                // If no UUID is stored in cookies, generate a new one
+                userUUID = uuidv4();
+                setCookie('userUUID', userUUID, { path: '/' });
+              }
+      
+              // Check if the user already exists in Firestore
+              const userCollectionRef = collection(db, 'users', userUUID, 'sentiments');
+              const snapshot = await getDocs(userCollectionRef);
+
+              let num = 0;
+              snapshot.array.forEach(doc => {
+
+                
+
+                if(doc.sentiment == 'Positive' || doc.sentiment == 'Stronly Positive'){
+                    num++;
+                }
+              });
+              console.log(num);
+              setNumPositive(num);
+
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            }
+          };
+      
+          fetchData();
+
+    }, [calendarData, setCalendatData]);
+
+
     const getTileClassName = ({ date, view }) => {
         if (view === 'month') {
             const dateString = date.toISOString().split('T')[0];
