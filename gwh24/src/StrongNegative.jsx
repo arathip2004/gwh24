@@ -14,7 +14,7 @@ function StrongNegative() {
     return (
         <div className="neutral-container">
             <h1>Strongly Negative Sentiment Detected</h1>
-            <p>Here’s an inspirational quote for you:</p>
+            <p>You seem very troubled. Here’s an inspirational quote for you:</p>
             {quote ? (
                 <div>
                     <p className="quote">"{quote}"</p> {/* Display the fetched quote */}
@@ -22,6 +22,13 @@ function StrongNegative() {
             ) : (
                 <p>Loading quote...</p>
             )}
+            <p>Also, here are some resources that might help.</p>
+            <ul>
+                <li>UVA caps - https://www.studenthealth.virginia.edu/mental-health/getting-started-scheduling</li>
+                <li>Hoos Well - https://rec.virginia.edu/hoos-well</li>
+                <li>Timely Care - https://www.studenthealth.virginia.edu/mental-health/our-services/timelycare</li>
+                
+            </ul>
         </div>
     );
 }
