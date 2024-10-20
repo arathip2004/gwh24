@@ -109,7 +109,7 @@ function App() {
   if (existingUser !== null && result === null) {
     return (
       <>
-        <h1>How are you feeling today?</h1>
+        <h1>Let’s dig into your feelings!</h1>
         <TextAnimation />
         <div className="container">
           <div className="search">
