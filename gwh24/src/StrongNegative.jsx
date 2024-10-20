@@ -3,17 +3,17 @@ import React, { useState, useEffect } from 'react'; // Only import useState and 
 import Quotes from 'inspirational-quotes'; // Import the inspirational quotes package
 
 function StrongNegative() {
-    const [quote, setQuote] = useState(''); // State to store the fetched quote
+    const [quote, setQuote] = useState('');
 
     // Load the quote when the component is mounted
     useEffect(() => {
         fetchNewQuote();
-    }, []); // Empty dependency array ensures this runs only once on component mount
+    }, []);
 
     const fetchNewQuote = () => {
-        const fetchedQuote = Quotes.getQuote(); // Get a random quote
-        console.log("Fetched Quote:", fetchedQuote); // Log the fetched quote
-        setQuote(fetchedQuote.text); // Set the quote text in state
+        const fetchedQuote = Quotes.getQuote();
+        console.log("Fetched Quote:", fetchedQuote);
+        setQuote(fetchedQuote.text);
     };
 
     return (
@@ -27,7 +27,12 @@ function StrongNegative() {
             ) : (
                 <p>Loading quote...</p>
             )}
-            <button onClick={fetchNewQuote}>Generate New Quote</button>
+            <button onClick={() => {
+                console.log("Button Clicked"); // Log when the button is clicked
+                fetchNewQuote();
+            }}>
+                Generate New Quote
+            </button>
             <p>Also, here are some resources that might help.</p>
             <ul>
                 <li>UVA caps - https://www.studenthealth.virginia.edu/mental-health/getting-started-scheduling</li>
