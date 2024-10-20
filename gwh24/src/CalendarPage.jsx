@@ -108,6 +108,7 @@ function MyCalendar() {
                         src={sentimentImage}
                         alt="Sentiment"
                     />
+                    <h1 className = "flower-text">Help your flower grow by having more good days!</h1>
                 </div>
             </div>
         </>
