@@ -42,7 +42,18 @@ function MyCalendar() {
         }
         return '';
     };
+
+    const sentimentImages = {
+        'Strongly Positive': "./src/flowerBlossom.png",
+        'Positive': './src/stem.png',
+        'Neutral': './src/sprout.svg',
+        'Negative': './src/bud.svg',
+        'Strongly Negative': './src/dirt.svg',
+    };
+
     return (
+    <>
+    <div className="container">
         <div className="my-custom-calendar">
             <h1>Select a Date</h1>
             <Calendar
@@ -52,6 +63,14 @@ function MyCalendar() {
             />
             <p>Selected date: {value.toDateString()}</p>
         </div>
+        <div className = "flower-image">
+            <img
+                src={sentimentImages['Strongly Positive']}
+                alt="Sentiment"
+            />
+        </div>
+    </div>
+    </>
     );
 }
 
