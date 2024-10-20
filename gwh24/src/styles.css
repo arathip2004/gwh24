@@ -65,7 +65,7 @@
     color: white;
     display: flex;
     position: absolute;
-    bottom: 40px;
+    bottom: 30px;
     left: 0;
     width: 100%;
     justify-content: center;
@@ -201,3 +201,26 @@
       transform: scaleY(0.1);
     }
 }
+audio{
+    display:none;
+}
+/* Assuming the play and pause icons are within a button */
+.pause {
+    background: none; /* Remove default button background */
+    border: none;     /* Remove default button border */
+    cursor: pointer;  /* Change cursor to pointer on hover */
+    padding: 0;
+  }
+  
+  /* Default icon color */
+  .pauseicon,
+  .playicon {
+    color: white;  /* Normal color */
+    transition: color 0.3s; /* Smooth transition for color change */
+  }
+  
+  /* Change color to purple on hover */
+  .pause:hover .pauseicon,
+  .pause:hover .playicon {
+    color: purple; /* Hover color */
+  }
