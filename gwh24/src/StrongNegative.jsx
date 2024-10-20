@@ -1,5 +1,5 @@
 import './styles.css';
-import { useState, useEffect } from 'react'; // Only import useState and useEffect
+import React, { useState, useEffect } from 'react'; // Only import useState and useEffect
 import Quotes from 'inspirational-quotes'; // Import the inspirational quotes package
 
 function StrongNegative() {
@@ -7,9 +7,14 @@ function StrongNegative() {
 
     // Load the quote when the component is mounted
     useEffect(() => {
-        const fetchedQuote = Quotes.getQuote(); // Use the package to get a random quote
-        setQuote(fetchedQuote.text); // Set the quote text in state
+        fetchNewQuote();
     }, []); // Empty dependency array ensures this runs only once on component mount
+
+    const fetchNewQuote = () => {
+        const fetchedQuote = Quotes.getQuote(); // Get a random quote
+        console.log("Fetched Quote:", fetchedQuote); // Log the fetched quote
+        setQuote(fetchedQuote.text); // Set the quote text in state
+    };
 
     return (
         <div className="neutral-container">
@@ -22,15 +27,15 @@ function StrongNegative() {
             ) : (
                 <p>Loading quote...</p>
             )}
+            <button onClick={fetchNewQuote}>Generate New Quote</button>
             <p>Also, here are some resources that might help.</p>
             <ul>
                 <li>UVA caps - https://www.studenthealth.virginia.edu/mental-health/getting-started-scheduling</li>
                 <li>Hoos Well - https://rec.virginia.edu/hoos-well</li>
                 <li>Timely Care - https://www.studenthealth.virginia.edu/mental-health/our-services/timelycare</li>
-                
             </ul>
         </div>
     );
 }
 
-export default StrongNegative
+export default StrongNegative;
