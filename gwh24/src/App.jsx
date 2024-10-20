@@ -8,9 +8,11 @@ import StrongNegative from './StrongNegative';
 import TextAnimation from './TextAnimation'
 import FlowerFooter from './FlowerFooter';
 import { useState, useEffect } from "react";
-import { collection, getDocs } from 'firebase/firestore/lite';
+/*import { collection, getDocs } from 'firebase/firestore/lite';*/
 import axios from "axios";
 import { db } from "./firebaseConfig"; // Adjust the path as necessary
+
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 
 function App() {
@@ -26,12 +28,12 @@ function App() {
     };
 
 
-    useEffect(() => {
+    /*useEffect(() => {
       //passing getData method to the lifecycle method
 
       const fetchUser = async () => {
-        const res = null;
-        while(res = null){
+        var res = null;
+        while(res == null){
         res = await axios.get("https://api.ipify.org/?format=json");
         }
         console.log(res.data);
@@ -57,7 +59,43 @@ function App() {
         }
       }
       fetchUser();
-    }, []);
+    }, []);*/
+
+    useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            // Fetch the user's IP address
+            const res = await axios.get("https://api.ipify.org/?format=json");
+            const ip = res.data.ip;
+            console.log("User IP:", ip);
+      
+            setIP(ip); // Save the IP in the state
+            
+            // Use the IP address as part of the document (not collection) for user identification
+            const userDocRef = doc(db, "users", ip); // 'users' is a collection where each document is an IP
+            
+            const userDoc = await getDoc(userDocRef); // Check if the document for this IP exists
+      
+            if (userDoc.exists()) {
+              // User document exists
+              console.log("Welcome back, user");
+              setExistingUser(true);
+            } else {
+              // New user, add their info
+              console.log("Adding new user");
+              await setDoc(userDocRef, {
+                name: "First Document", 
+                value: 100 
+              });
+              setExistingUser(false);
+            }
+          } catch (error) {
+            console.error("Error fetching user or adding to Firestore:", error);
+          }
+        };
+      
+        fetchUser();
+      }, []);      
 
     const sentiment = new Sentiment();
 
