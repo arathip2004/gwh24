@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { db } from "./firebaseConfig"; // Adjust the path as necessary
 import { doc, getDoc } from "firebase/firestore";
@@ -9,7 +9,16 @@ function Neutral() {
   const [randomSong, setRandomSong] = useState(null);
   const [token, setToken] = useState(null); // State for storing the token
   const genres = ["ambient", "lo-fi", "chill", "instrumental"]; // List of genres
-
+  const [isPlaying, setIsPlaying] = useState(true);
+  const audioRef = useRef(null);
+  useEffect(() => {
+    // Play the song whenever a new randomSong is selected
+    if (randomSong && randomSong.preview_url && isPlaying) {
+      audioRef.current.play();
+    } else if (audioRef.current) {
+      audioRef.current.pause();
+    }
+  }, [randomSong, isPlaying]);
   useEffect(() => {
     const fetchToken = async () => {
       const tokenDoc = await getDoc(doc(db, "tokens", "spotify")); // Adjust collection and document names if necessary
@@ -59,6 +68,16 @@ function Neutral() {
     const randomIndex = Math.floor(Math.random() * songs.length);
     setRandomSong(songs[randomIndex]);
   };
+  const handlePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying); // Toggle play/pause state
+    }
+  };
 
   return (
     <div className="App">
@@ -102,9 +121,19 @@ function Neutral() {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="24" width="24">
   <path clip-rule="evenodd" d="M12 21.6a9.6 9.6 0 1 0 0-19.2 9.6 9.6 0 0 0 0 19.2Zm.848-12.352a1.2 1.2 0 0 0-1.696-1.696l-3.6 3.6a1.2 1.2 0 0 0 0 1.696l3.6 3.6a1.2 1.2 0 0 0 1.696-1.696L11.297 13.2H15.6a1.2 1.2 0 1 0 0-2.4h-4.303l1.551-1.552Z" fill-rule="evenodd"></path>
 </svg>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="24" width="24">
-  <path clip-rule="evenodd" d="M21.6 12a9.6 9.6 0 1 1-19.2 0 9.6 9.6 0 0 1 19.2 0ZM8.4 9.6a1.2 1.2 0 1 1 2.4 0v4.8a1.2 1.2 0 1 1-2.4 0V9.6Zm6-1.2a1.2 1.2 0 0 0-1.2 1.2v4.8a1.2 1.2 0 1 0 2.4 0V9.6a1.2 1.2 0 0 0-1.2-1.2Z" fill-rule="evenodd"></path>
-</svg>
+<button className="pause" onClick={handlePlayPause}>
+  {isPlaying ? (
+    // Show the pause icon when the song is playing
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="24" width="24" style={{color: "white"}}>
+      <path clip-rule="evenodd" d="M21.6 12a9.6 9.6 0 1 1-19.2 0 9.6 9.6 0 0 1 19.2 0ZM8.4 9.6a1.2 1.2 0 1 1 2.4 0v4.8a1.2 1.2 0 1 1-2.4 0V9.6Zm6-1.2a1.2 1.2 0 0 0-1.2 1.2v4.8a1.2 1.2 0 1 0 2.4 0V9.6a1.2 1.2 0 0 0-1.2-1.2Z" fill-rule="evenodd"></path>
+    </svg>
+  ) : (
+    // Show the play icon when the song is paused
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="24" width="24" style={{color: "white"}}>
+      <path d="M8 5v14l11-7L8 5z"></path>
+    </svg>
+  )}
+</button>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="24" width="24">
   <path clip-rule="evenodd" d="M12 21.6a9.6 9.6 0 1 0 0-19.2 9.6 9.6 0 0 0 0 19.2Zm4.448-10.448-3.6-3.6a1.2 1.2 0 0 0-1.696 1.696l1.551 1.552H8.4a1.2 1.2 0 1 0 0 2.4h4.303l-1.551 1.552a1.2 1.2 0 1 0 1.696 1.696l3.6-3.6a1.2 1.2 0 0 0 0-1.696Z" fill-rule="evenodd"></path>
 </svg>
@@ -118,14 +147,21 @@ function Neutral() {
   </div>
   <p class="timetext time_now">1:31</p>
   <p class="timetext time_full">3:46</p>    
+
 </div>
 <a href={randomSong.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                      Listen on Spotify
                  </a>
+                 {randomSong.preview_url && (
+            <audio ref={audioRef} src={randomSong.preview_url} onEnded={() => setIsPlaying(false)} />
+          )}
                  </>
+
         ) : (
             <p>Loading...</p>
+            
         )}
+        
         <div/>
         <button onClick={() => getRandomSong(songs)}>Get Another Song</button>
     </div>
