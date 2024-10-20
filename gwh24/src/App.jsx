@@ -30,13 +30,15 @@ function App() {
       //passing getData method to the lifecycle method
 
       const fetchUser = async () => {
-        
-        const res = await axios.get("https://api.ipify.org/?format=json");
+        const res = null;
+        while(res = null){}
+        res = await axios.get("https://api.ipify.org/?format=json");
+      }
         console.log(res.data);
         setIP(res.data.ip);
       
         console.log("getting data");
-        
+
         const userCollection = await getDocs(collection(db,  ip));
   
         if (userCollection.exists()) {
