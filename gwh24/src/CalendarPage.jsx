@@ -6,7 +6,7 @@ import './Calendar.css';
 
 function MyCalendar() {
     const [value, onChange] = useState(new Date());
-    const sentimentData = {
+    let sentimentData = {
         '2024-10-01': 'Negative',
         '2024-10-02': 'Positive',
         '2024-10-03': 'Positive',
@@ -24,6 +24,8 @@ function MyCalendar() {
         '2024-10-18': 'Negative',
         '2024-10-19': 'Neutral',
     };
+
+
     const getTileClassName = ({ date, view }) => {
         if (view === 'month') {
             const dateString = date.toISOString().split('T')[0];
