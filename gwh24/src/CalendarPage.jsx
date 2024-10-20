@@ -7,13 +7,23 @@ import './Calendar.css';
 function MyCalendar() {
     const [value, onChange] = useState(new Date());
     const sentimentData = {
+        '2024-10-01': 'Negative',
+        '2024-10-02': 'Positive',
+        '2024-10-03': 'Positive',
+        '2024-10-04': 'Strongly Negative',
+        '2024-10-05': 'Strongly Negative',
+        '2024-10-06': 'Negative',
+        '2024-10-07': 'Neutral',
+        '2024-10-10': 'Neutral',
+        '2024-10-11': 'Strongly Positive',
+        '2024-10-12': 'Positive',
+        '2024-10-13': 'Positive',
         '2024-10-15': 'Strongly Negative',
         '2024-10-16': 'Strongly Positive',
         '2024-10-17': 'Positive',
         '2024-10-18': 'Negative',
         '2024-10-19': 'Neutral',
     };
-
     const getTileClassName = ({ date, view }) => {
         if (view === 'month') {
             const dateString = date.toISOString().split('T')[0];
