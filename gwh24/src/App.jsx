@@ -21,19 +21,23 @@ function App() {
 
 
     const getIP = async () => {
-      const res = await axios.get("https://api.ipify.org/?format=json");
-      console.log(res.data);
-      setIP(res.data.ip);
+
+      
     };
 
 
     useEffect(() => {
       //passing getData method to the lifecycle method
-      getIP();
 
       const fetchUser = async () => {
+        
+        const res = await axios.get("https://api.ipify.org/?format=json");
+        console.log(res.data);
+        setIP(res.data.ip);
+      
         console.log("getting data");
-        const userCollection = await getDocs(collection(db, ip));
+        
+        const userCollection = await getDocs(collection(db,  ip));
   
         if (userCollection.exists()) {
          //existing user
@@ -41,7 +45,12 @@ function App() {
          setExistingUser(true)
         } else {
           console.log("adding user")
-          addDoc(collection(db, ip));
+          const newCollectionRef = collection(db, {ip});
+          const newDocRef = await addDoc(newCollectionRef, { 
+            // Data for the first document in the collection
+            name: "First Document", 
+            value: 100 
+          });
           setExistingUser(false);
         }
       }
