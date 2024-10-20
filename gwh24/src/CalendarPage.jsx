@@ -5,6 +5,8 @@ import './Calendar.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig'; // Make sure to adjust the path
 import { useCookies } from 'react-cookie'; // Import the cookie hook
+import key from "./key.svg";
+
 
 function MyCalendar() {
     const [value, onChange] = useState(new Date());
@@ -112,6 +114,8 @@ function MyCalendar() {
     return (
         <>
             <div className="container">
+                <div className='calendarAndKey'>
+                    
                 <div className="my-custom-calendar">
                     <h1>Select a Date</h1>
                     <Calendar
@@ -120,6 +124,11 @@ function MyCalendar() {
                         tileClassName={getTileClassName}
                     />
                     <p>Selected date: {value.toDateString()}</p>
+                </div>
+                <div className='picAndTitle'>
+                        <p>Key:</p>
+                <img src={key} alt="" class= "keypicture"/>
+                </div>
                 </div>
                 <div className="flower-image">
                     <img
