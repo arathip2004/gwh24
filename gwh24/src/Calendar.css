@@ -41,6 +41,9 @@
     margin-top: 100px;
 }
 .my-custom-calendar .react-calendar__tile--active {
-    background-color: transparent;  /* No background color */
-    color: inherit;                 /* Keep the text color */
+    background-color: transparent;
+    color: inherit;
+}
+.my-custom-calendar .react-calendar__month-view__days__day--weekend {
+    color: black;
 }
