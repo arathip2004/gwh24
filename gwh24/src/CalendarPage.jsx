@@ -6,7 +6,9 @@ import './Calendar.css';
 
 function MyCalendar() {
     const [value, onChange] = useState(new Date());
+    // eslint-disable-next-line no-unused-vars
     const [numOfPositives, setNumPositive] = useState(0);
+    // eslint-disable-next-line no-unused-vars
     const [existingUser, setExistingUser] = useState(null);
 
     let sentimentData = {
@@ -33,16 +35,21 @@ function MyCalendar() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // eslint-disable-next-line no-undef
               let userUUID = cookies.userUUID;
       
               if (!userUUID) {
                 // If no UUID is stored in cookies, generate a new one
+                  // eslint-disable-next-line no-undef
                 userUUID = uuidv4();
+                  // eslint-disable-next-line no-undef
                 setCookie('userUUID', userUUID, { path: '/' });
               }
       
               // Check if the user already exists in Firestore
+                // eslint-disable-next-line no-undef
               const userCollectionRef = collection(db, 'users', userUUID, 'sentiments');
+                // eslint-disable-next-line no-undef
               const snapshot = await getDocs(userCollectionRef);
 
               let num = 0;
