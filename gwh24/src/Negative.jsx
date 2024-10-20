@@ -26,6 +26,7 @@ function Negative() {
     return (
         <div>
         <h1>Negative Sentiment Detected</h1>
+        <p>We're sorry to hear you're feeling that way. Here's a wholsome meme to turn that smile upside down :)</p>
         <>{meme ? (
             <div>
               <img src={meme.url} alt={meme.title} style={{maxHeight: '200px'}} />

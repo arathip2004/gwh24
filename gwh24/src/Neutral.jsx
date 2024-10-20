@@ -81,7 +81,10 @@ function Neutral() {
 
   return (
     <div className="App">
-        <h1>Calm Music</h1>
+        <h1>Neutral Sentiment Detected!</h1>
+        <p>You seem calm. Keep being you, here's a soothing song to keep you in your element.</p>
+
+        <div className="songContainer">
         {randomSong ? (
             // <div>
             //     <h2>{randomSong.name}</h2>
@@ -161,6 +164,7 @@ function Neutral() {
             <p>Loading...</p>
             
         )}
+        </div>
         
         <div/>
         <button onClick={() => getRandomSong(songs)}>Get Another Song</button>

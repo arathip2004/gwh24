@@ -40,12 +40,12 @@ function StrongPositive() {
 
     return (
         <div>
-            <h1>Strongly Sentiment Detected</h1>
+            <h1>Strongly Positive Sentiment Detected</h1>
         <p>{joke ? joke : 'Loading joke...'}</p>
         <button onClick={fetchJoke}>Generate New Joke</button>
       {meme ? (
         <div>
-          <img src={meme.url} alt={meme.title} style={{ maxHeight: '100px' }} />
+          <img src={meme.url} alt={meme.title} style={{ maxHeight: '250px', marginTop: '10px'}} />
         </div>
       ) : (
         <p>Loading meme...</p>
