@@ -1,21 +1,21 @@
 .strong-positive-day {
-    background-color: #45af6c;
+    background-color: #baffc9;
 }
 
 .positive-day {
-    background-color: #93ca5f;
+    background-color: #ffffba;
 }
 
 .neutral-day {
-    background-color: #9dadd4;
+    background-color: #bae1ff;
 }
 
 .negative-day {
-    background-color: #d8778a;
+    background-color: 	#ffdfba;
 }
 
 .strongly-negative-day {
-    background-color: #b3455a;
+    background-color: #ffb3ba;
 }
 
 .my-custom-calendar {
