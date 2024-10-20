@@ -40,3 +40,7 @@
 {
     margin-top: 100px;
 }
+.my-custom-calendar .react-calendar__tile--active {
+    background-color: transparent;  /* No background color */
+    color: inherit;                 /* Keep the text color */
+}
