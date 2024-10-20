@@ -9,8 +9,7 @@ function MyCalendar() {
     const [numOfPositives, setNumPositive] = useState(0);
     const [existingUser, setExistingUser] = useState(null);
 
-
-    const sentimentData = {
+    let sentimentData = {
         '2024-10-01': 'Negative',
         '2024-10-02': 'Positive',
         '2024-10-03': 'Positive',
@@ -66,7 +65,6 @@ function MyCalendar() {
           fetchData();
 
     }, [calendarData, setCalendatData]);
-
 
     const getTileClassName = ({ date, view }) => {
         if (view === 'month') {
