@@ -21,41 +21,34 @@ function App() {
   const [result, setResult] = useState(null);
   const [humanReadable, setHumanReadable] = useState('');
 
-  // Function to add sentiment data to Firestore
-  const addSentiment = async (interpretation) => {
+  // Function to add or overwrite sentiment data in Firestore with alert
+  const addOrOverwriteSentiment = async (interpretation) => {
     try {
       const userUUID = cookies.userUUID;
       const userCollectionRef = collection(db, 'users', userUUID, 'sentiments');
-      const snapshot = await getDocs(userCollectionRef);
 
-      let alreadySubmitted = false;
       const currDate = new Date();
       currDate.setHours(0, 0, 0, 0); // Normalize to only date
 
-      // Loop through documents to check if an entry exists for the current date
-      snapshot.forEach((doc) => {
-        const docData = doc.data();
-        const docDate = docData.date.toDate(); // Assuming Firestore timestamp
-        docDate.setHours(0, 0, 0, 0);
+      const docRef = doc(userCollectionRef, currDate.toISOString());
+      const docSnapshot = await getDoc(docRef);
 
-        // Compare the document date with the current date
-        if (docDate.getTime() === currDate.getTime()) {
-          alreadySubmitted = true;
+      // Check if a sentiment already exists for the current date
+      if (docSnapshot.exists()) {
+        const confirmed = window.confirm('You already submitted your sentiment for today. Do you want to overwrite it?');
+        if (!confirmed) {
+          return; // Exit if the user chooses not to overwrite
         }
-      });
-
-      if (alreadySubmitted) {
-        alert('You have already submitted your sentiment for today.');
-      } else {
-        const docRef = doc(userCollectionRef, currDate.toISOString());
-        // Store sentiment analysis with date and interpretation
-        await setDoc(docRef, {
-          sentiment: interpretation,
-          date: currDate,
-        });
       }
+
+      // Store or overwrite sentiment analysis with date and interpretation
+      await setDoc(docRef, {
+        sentiment: interpretation,
+        date: currDate,
+      });
+      alert('Your sentiment has been submitted successfully.');
     } catch (error) {
-      console.error('Error adding sentiment to Firestore:', error);
+      console.error('Error adding or overwriting sentiment in Firestore:', error);
     }
   };
 
@@ -108,8 +101,8 @@ function App() {
     const interpretation = interpretSentiment(score);
     setHumanReadable(interpretation);
 
-    // Call function to add sentiment to Firestore
-    addSentiment(interpretation);
+    // Call function to add or overwrite sentiment in Firestore
+    addOrOverwriteSentiment(interpretation);
   }
 
   // Initial view for asking how the user is feeling today
